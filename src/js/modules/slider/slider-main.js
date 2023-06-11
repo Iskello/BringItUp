@@ -2,8 +2,8 @@ import Slider from './slider';
 
 //Створюємо головний слайдер який наслідується від Слайдеру
 export default class MainSlider extends Slider {
-	constructor(page, btns) {
-		super(page, btns);
+	constructor(btns) {
+		super(btns);
 	}
 
 	showSlides(n) {
@@ -53,6 +53,7 @@ export default class MainSlider extends Slider {
 				this.plusSlides(1);
 			});
 
+			//При натисканні на логотип перелистується на перший слайд
 			item.parentNode.previousElementSibling.addEventListener('click', (e) => {
 				e.preventDefault();
 				this.slideIndex = 1;
