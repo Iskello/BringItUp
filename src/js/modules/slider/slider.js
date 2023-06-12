@@ -1,8 +1,13 @@
 export default class Slider {
-	constructor({container = null, 
-		btns = null, 
+	constructor({container = null,
+		//вперед/назад для головного слайдера 
+		nextPage = null, 
+		prevPage = null,
+		//вперед/назад для міні слайдера
 		next = null, 
 		prev = null,
+		//додаткова кнопка для перелистування (міні слайдер)
+		nextPlus = null,
 		activeClass = '',
 		animate,
 		autoplay } = {}) {
@@ -11,9 +16,11 @@ export default class Slider {
 		try {
 			this.slides = this.container.children;
 		} catch(e) {} 
-		this.btns = document.querySelectorAll(btns);
+		this.nextPage = document.querySelectorAll(nextPage);
+		this.prevPage = document.querySelectorAll(prevPage);
 		this.prev = document.querySelector(prev);
 		this.next = document.querySelector(next);
+		this.nextPlus = document.querySelectorAll(nextPlus);
 		this.activeClass = activeClass;
 		this.animate = animate;
 		this.autoplay = autoplay;

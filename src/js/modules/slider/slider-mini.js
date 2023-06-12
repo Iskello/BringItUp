@@ -1,8 +1,8 @@
 import Slider from './slider';
 
 export default class MiniSlider extends Slider {
-	constructor(container, next, prev, activeClass, animate, autoplay) {
-		super(container, next, prev, activeClass, animate, autoplay);
+	constructor(container, next, prev, activeClass, animate, autoplay, nextPlus) {
+		super(container, next, prev, activeClass, animate, autoplay, nextPlus);
 		this.interval = null; // Додана змінна для зберігання інтервалу
 	}
 
@@ -57,6 +57,11 @@ export default class MiniSlider extends Slider {
 		//При натисканні кнопки далі перший слайд перемішується в кінець слайдеру
 		this.next.addEventListener('click', () => this.nextSlide());
 
+		this.nextPage.forEach(arrow => {
+			arrow.addEventListener('click', () => this.nextSlide());
+		});
+
+		
 		this.prev.addEventListener('click', () => {
 
 			//виправлення багу з кнопками

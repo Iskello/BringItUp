@@ -2,8 +2,8 @@ import Slider from './slider';
 
 //Створюємо головний слайдер який наслідується від Слайдеру
 export default class MainSlider extends Slider {
-	constructor(btns) {
-		super(btns);
+	constructor(nextPage, prevPage) {
+		super(nextPage, prevPage);
 	}
 
 	showSlides(n) {
@@ -43,7 +43,7 @@ export default class MainSlider extends Slider {
 	}
 
 	bindTriggers() {
-		this.btns.forEach(item => {
+		this.nextPage.forEach(item => {
 			item.addEventListener('click', () => {
 				this.plusSlides(1);
 			});
@@ -57,21 +57,21 @@ export default class MainSlider extends Slider {
 		
 		});
 
-		document.querySelectorAll('.prevmodule').forEach(item => {
-			item.addEventListener('click', (e) => {
-				e.stopPropagation();
-				e.preventDefault();
+		this.prevPage.forEach(item => {
+			item.addEventListener('click', () => {				
 				this.plusSlides(-1);
 			});
 		});
 
-		document.querySelectorAll('.nextmodule').forEach(item => {
+		
+
+		/* document.querySelectorAll('.next').forEach(item => {
 			item.addEventListener('click', (e) => {
 				e.stopPropagation();
 				e.preventDefault();
 				this.plusSlides(1);
 			});
-		});
+		}); */
 	}
 
 

@@ -5024,19 +5024,22 @@ __webpack_require__.r(__webpack_exports__);
 
 window.addEventListener('DOMContentLoaded', function () {
   var slider = new _modules_slider_slider_main__WEBPACK_IMPORTED_MODULE_0__["default"]({
-    btns: '.next',
-    container: '.page'
+    nextPage: '.next',
+    container: '.page',
+    prevPage: '.sidecontrol__controls-show'
   });
   slider.render();
   var modulePageSlider = new _modules_slider_slider_main__WEBPACK_IMPORTED_MODULE_0__["default"]({
     container: '.moduleapp',
-    btns: '.next'
+    nextPage: '.next',
+    prevPage: '.prev'
   });
   modulePageSlider.render();
   var showUpSlider = new _modules_slider_slider_mini__WEBPACK_IMPORTED_MODULE_1__["default"]({
     container: '.showup__content-slider',
     prev: '.showup__prev',
     next: '.showup__next',
+    nextPage: '.card__controls-arrow',
     activeClass: 'card-active',
     animate: true
   });
@@ -5045,6 +5048,7 @@ window.addEventListener('DOMContentLoaded', function () {
     container: '.modules__content-slider',
     prev: '.modules__info-btns .slick-prev',
     next: '.modules__info-btns .slick-next',
+    nextPage: '.card__controls-arrow',
     activeClass: 'card-active',
     animate: true,
     autoplay: true
@@ -5519,10 +5523,10 @@ var MainSlider =
 function (_Slider) {
   _inherits(MainSlider, _Slider);
 
-  function MainSlider(btns) {
+  function MainSlider(nextPage, prevPage) {
     _classCallCheck(this, MainSlider);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(MainSlider).call(this, btns));
+    return _possibleConstructorReturn(this, _getPrototypeOf(MainSlider).call(this, nextPage, prevPage));
   }
 
   _createClass(MainSlider, [{
@@ -5568,7 +5572,7 @@ function (_Slider) {
     value: function bindTriggers() {
       var _this2 = this;
 
-      this.btns.forEach(function (item) {
+      this.nextPage.forEach(function (item) {
         item.addEventListener('click', function () {
           _this2.plusSlides(1);
         }); //При натисканні на логотип перелистується на перший слайд
@@ -5580,22 +5584,18 @@ function (_Slider) {
           _this2.showSlides(_this2.slideIndex);
         });
       });
-      document.querySelectorAll('.prevmodule').forEach(function (item) {
-        item.addEventListener('click', function (e) {
-          e.stopPropagation();
-          e.preventDefault();
-
+      this.prevPage.forEach(function (item) {
+        item.addEventListener('click', function () {
           _this2.plusSlides(-1);
         });
       });
-      document.querySelectorAll('.nextmodule').forEach(function (item) {
-        item.addEventListener('click', function (e) {
-          e.stopPropagation();
-          e.preventDefault();
-
-          _this2.plusSlides(1);
-        });
-      });
+      /* document.querySelectorAll('.next').forEach(item => {
+      	item.addEventListener('click', (e) => {
+      		e.stopPropagation();
+      		e.preventDefault();
+      		this.plusSlides(1);
+      	});
+      }); */
     }
   }, {
     key: "render",
@@ -5682,12 +5682,12 @@ var MiniSlider =
 function (_Slider) {
   _inherits(MiniSlider, _Slider);
 
-  function MiniSlider(container, next, prev, activeClass, animate, autoplay) {
+  function MiniSlider(container, next, prev, activeClass, animate, autoplay, nextPlus) {
     var _this;
 
     _classCallCheck(this, MiniSlider);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(MiniSlider).call(this, container, next, prev, activeClass, animate, autoplay));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MiniSlider).call(this, container, next, prev, activeClass, animate, autoplay, nextPlus));
     _this.interval = null; // Додана змінна для зберігання інтервалу
 
     return _this;
@@ -5753,6 +5753,11 @@ function (_Slider) {
       //При натисканні кнопки далі перший слайд перемішується в кінець слайдеру
       this.next.addEventListener('click', function () {
         return _this3.nextSlide();
+      });
+      this.nextPage.forEach(function (arrow) {
+        arrow.addEventListener('click', function () {
+          return _this3.nextSlide();
+        });
       });
       this.prev.addEventListener('click', function () {
         //виправлення багу з кнопками
@@ -5851,12 +5856,16 @@ var Slider = function Slider() {
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
       _ref$container = _ref.container,
       container = _ref$container === void 0 ? null : _ref$container,
-      _ref$btns = _ref.btns,
-      btns = _ref$btns === void 0 ? null : _ref$btns,
+      _ref$nextPage = _ref.nextPage,
+      nextPage = _ref$nextPage === void 0 ? null : _ref$nextPage,
+      _ref$prevPage = _ref.prevPage,
+      prevPage = _ref$prevPage === void 0 ? null : _ref$prevPage,
       _ref$next = _ref.next,
       next = _ref$next === void 0 ? null : _ref$next,
       _ref$prev = _ref.prev,
       prev = _ref$prev === void 0 ? null : _ref$prev,
+      _ref$nextPlus = _ref.nextPlus,
+      nextPlus = _ref$nextPlus === void 0 ? null : _ref$nextPlus,
       _ref$activeClass = _ref.activeClass,
       activeClass = _ref$activeClass === void 0 ? '' : _ref$activeClass,
       animate = _ref.animate,
@@ -5870,9 +5879,11 @@ var Slider = function Slider() {
     this.slides = this.container.children;
   } catch (e) {}
 
-  this.btns = document.querySelectorAll(btns);
+  this.nextPage = document.querySelectorAll(nextPage);
+  this.prevPage = document.querySelectorAll(prevPage);
   this.prev = document.querySelector(prev);
   this.next = document.querySelector(next);
+  this.nextPlus = document.querySelectorAll(nextPlus);
   this.activeClass = activeClass;
   this.animate = animate;
   this.autoplay = autoplay;

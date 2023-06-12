@@ -5,16 +5,17 @@ import Difference from './modules/difference';
 import Form from './modules/forms';
 
 window.addEventListener('DOMContentLoaded', () => {
-	const slider = new MainSlider({btns: '.next', container: '.page'});
+	const slider = new MainSlider({nextPage: '.next', container: '.page', prevPage: '.sidecontrol__controls-show'});
 	slider.render();
 
-	const modulePageSlider = new MainSlider({container: '.moduleapp', btns: '.next'});
+	const modulePageSlider = new MainSlider({container: '.moduleapp', nextPage: '.next', prevPage: '.prev'});
 	modulePageSlider.render();
 
 	const showUpSlider = new MiniSlider({
 		container: '.showup__content-slider',
 		prev: '.showup__prev',
 		next: '.showup__next',
+		nextPage: '.card__controls-arrow',
 		activeClass: 'card-active',
 		animate: true
 	});
@@ -24,6 +25,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		container: '.modules__content-slider',
 		prev: '.modules__info-btns .slick-prev',
 		next: '.modules__info-btns .slick-next',
+		nextPage: '.card__controls-arrow',
 		activeClass: 'card-active',
 		animate: true,
 		autoplay: true
