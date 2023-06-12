@@ -3,9 +3,11 @@ export default class Difference {
 		this.oldOfficer = document.querySelector(oldOfficer);
 		this.newOfficer = document.querySelector(newOfficer);
 
-		//конструкція, яка часто повторюється
-		this.oldItems = this.oldOfficer.querySelectorAll(items);
-		this.newItems = this.newOfficer.querySelectorAll(items);
+		try {
+			//конструкція, яка часто повторюється
+			this.oldItems = this.oldOfficer.querySelectorAll(items);
+			this.newItems = this.newOfficer.querySelectorAll(items);
+		} catch(e) {}
 
 		
 		this.oldCounter = 0;
@@ -60,10 +62,12 @@ export default class Difference {
 
 
 	init() {
-		this.hideItems(this.oldItems);
-		this.hideItems(this.newItems);
-		this.bindTriggers(this.oldOfficer, this.oldCounter, this.oldItems);
-		this.bindTriggers(this.newOfficer, this.newCounter, this.newItems);
+		try {
+			this.hideItems(this.oldItems);
+			this.hideItems(this.newItems);
+			this.bindTriggers(this.oldOfficer, this.oldCounter, this.oldItems);
+			this.bindTriggers(this.newOfficer, this.newCounter, this.newItems);
 		
+		} catch(e) {}
 	}
 }

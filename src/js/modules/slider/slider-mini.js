@@ -81,53 +81,55 @@ export default class MiniSlider extends Slider {
 	}
 
 	init() {
-		this.container.style.cssText = `
+		try {
+			this.container.style.cssText = `
             display: flex;
             flex-wrap: wrap;
             overflow: hidden;
             align-items: flex-start;
         `;
         
-		this.bindTriggers();
-		this.decorizeSlides();
+			this.bindTriggers();
+			this.decorizeSlides();
 
-		/* if(this.autoplay) {
+			/* if(this.autoplay) {
 			setInterval(() => this.nextSlide(), 5000);
 		} */
 
-		if (this.autoplay) {
-			this.interval = setInterval(() => this.nextSlide(), 5000); // Зберігаємо інтервал в змінній
-		}
-
-		this.container.addEventListener('mouseover', () => {
-			clearInterval(this.interval); // Зупиняємо інтервал при наведенні на контейнер
-		});
-
-		this.container.addEventListener('mouseout', () => {
 			if (this.autoplay) {
-				this.interval = setInterval(() => this.nextSlide(), 5000); // Поновлюємо інтервал при знятті курсора з контейнера
+				this.interval = setInterval(() => this.nextSlide(), 5000); // Зберігаємо інтервал в змінній
 			}
-		});
 
-		this.next.addEventListener('mouseover', () => {
-			clearInterval(this.interval); // Зупиняємо інтервал при наведенні на кнопки
-		});
+			this.container.addEventListener('mouseover', () => {
+				clearInterval(this.interval); // Зупиняємо інтервал при наведенні на контейнер
+			});
 
-		this.next.addEventListener('mouseout', () => {
-			if (this.autoplay) {
-				this.interval = setInterval(() => this.nextSlide(), 5000); // Поновлюємо інтервал при знятті курсора з кнопки
-			}
-		});
+			this.container.addEventListener('mouseout', () => {
+				if (this.autoplay) {
+					this.interval = setInterval(() => this.nextSlide(), 5000); // Поновлюємо інтервал при знятті курсора з контейнера
+				}
+			});
 
-		this.prev.addEventListener('mouseover', () => {
-			clearInterval(this.interval); // Зупиняємо інтервал при наведенні на кнопки
-		});
+			this.next.addEventListener('mouseover', () => {
+				clearInterval(this.interval); // Зупиняємо інтервал при наведенні на кнопки
+			});
 
-		this.prev.addEventListener('mouseout', () => {
-			if (this.autoplay) {
-				this.interval = setInterval(() => this.nextSlide(), 5000); // Поновлюємо інтервал при знятті курсора з кнопки
-			}
-		});
+			this.next.addEventListener('mouseout', () => {
+				if (this.autoplay) {
+					this.interval = setInterval(() => this.nextSlide(), 5000); // Поновлюємо інтервал при знятті курсора з кнопки
+				}
+			});
+
+			this.prev.addEventListener('mouseover', () => {
+				clearInterval(this.interval); // Зупиняємо інтервал при наведенні на кнопки
+			});
+
+			this.prev.addEventListener('mouseout', () => {
+				if (this.autoplay) {
+					this.interval = setInterval(() => this.nextSlide(), 5000); // Поновлюємо інтервал при знятті курсора з кнопки
+				}
+			});
+		} catch(e) {}
 
 	}
 
