@@ -5063,7 +5063,8 @@ window.addEventListener('DOMContentLoaded', function () {
   feedSlider.init();
   var player = new _modules_playVideo__WEBPACK_IMPORTED_MODULE_2__["default"]('.showup .play', '.overlay');
   player.init();
-  new _modules_difference__WEBPACK_IMPORTED_MODULE_3__["default"]('.officerold', '.officernew', '.officer__card-item').init();
+  new _modules_difference__WEBPACK_IMPORTED_MODULE_3__["default"]('.officerold', '.btn_trigger', '.officer__card-item').init();
+  new _modules_difference__WEBPACK_IMPORTED_MODULE_3__["default"]('.officernew', '.btn_trigger', '.officer__card-item').init();
   new _modules_forms__WEBPACK_IMPORTED_MODULE_4__["default"]('.form').init();
 });
 
@@ -5092,26 +5093,25 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Difference =
 /*#__PURE__*/
 function () {
-  function Difference(oldOfficer, newOfficer, items) {
+  function Difference(container, triggerBtn, items) {
     _classCallCheck(this, Difference);
 
-    this.oldOfficer = document.querySelector(oldOfficer);
-    this.newOfficer = document.querySelector(newOfficer);
+    this.container = document.querySelector(container);
 
     try {
       //конструкція, яка часто повторюється
-      this.oldItems = this.oldOfficer.querySelectorAll(items);
-      this.newItems = this.newOfficer.querySelectorAll(items);
+      this.items = this.container.querySelectorAll(items);
+      this.triggerBtn = this.container.querySelector(triggerBtn);
     } catch (e) {}
 
-    this.oldCounter = 0;
-    this.newCounter = 0;
-  }
+    this.counter = 0;
+  } //ховаємо всі елементи крім останнього
+
 
   _createClass(Difference, [{
     key: "hideItems",
-    value: function hideItems(container) {
-      container.forEach(function (item, i, arr) {
+    value: function hideItems(items) {
+      items.forEach(function (item, i, arr) {
         //якщо це не останній елемент, то ховаємо
         if (i !== arr.length - 1) {
           item.style.display = 'none';
@@ -5120,8 +5120,8 @@ function () {
     }
   }, {
     key: "bindTriggers",
-    value: function bindTriggers(container, counter, items) {
-      container.querySelector('.plus').addEventListener('click', function () {
+    value: function bindTriggers(counter, items) {
+      this.triggerBtn.addEventListener('click', function () {
         //При кожному натисненні показується елементи, коли доходить до останнього, блок зникає
         //умовою перевіряємо, що елемент не останній
         if (counter !== items.length - 2) {
@@ -5135,30 +5135,14 @@ function () {
           items[counter].classList.add('animated', 'fadeInUp');
           items[items.length - 1].remove();
         }
-      }); //Неоптимізована функція
-
-      /* this.oldOfficer.querySelector('.plus').addEventListener('click', () => {
-      	//При кожному натисненні показується елементи, коли доходить до останнього, блок зникає
-      	//умовою перевіряємо, що елемент не останній
-      	if (this.oldCounter !== this.oldItems.length - 2) {
-      		//показуємо даний елемент, збільшуємо лічильник
-      		this.oldItems[this.oldCounter].style.display = 'flex';
-      		this.oldCounter++;
-      	} else {
-      		//Коли доходимо до останнього, показуємо передостанній блок і видаляємо останній
-      		this.oldItems[this.oldCounter].style.display = 'flex';
-      		this.oldItems[this.oldItems.length - 1].remove(); 
-      			}
-      }); */
+      });
     }
   }, {
     key: "init",
     value: function init() {
       try {
-        this.hideItems(this.oldItems);
-        this.hideItems(this.newItems);
-        this.bindTriggers(this.oldOfficer, this.oldCounter, this.oldItems);
-        this.bindTriggers(this.newOfficer, this.newCounter, this.newItems);
+        this.hideItems(this.items);
+        this.bindTriggers(this.counter, this.items);
       } catch (e) {}
     }
   }]);
@@ -5543,7 +5527,7 @@ function (_Slider) {
       }
 
       try {
-        this.hanson.style.opacity = '0';
+        this.hanson.style.opacity = '0'; //на третьому слайді показуємо вспливаюче інформаційне вікно
 
         if (n === 3) {
           this.hanson.classList.add('animated');
@@ -5555,11 +5539,15 @@ function (_Slider) {
         } else {
           this.hanson.classList.remove('slideInUp');
         }
-      } catch (e) {}
+      } catch (e) {
+        console.log(e);
+      } //ховаємо всі непотрібні слайди
+
 
       this.slides.forEach(function (slide) {
         slide.style.display = 'none';
-      });
+      }); //показуємо даний слайд
+
       this.slides[this.slideIndex - 1].style.display = 'block';
     }
   }, {
@@ -5603,7 +5591,9 @@ function (_Slider) {
       if (this.container) {
         try {
           this.hanson = document.querySelector('.hanson');
-        } catch (e) {}
+        } catch (e) {
+          console.log(e);
+        }
 
         this.showSlides(this.slideIndex);
         this.bindTriggers();

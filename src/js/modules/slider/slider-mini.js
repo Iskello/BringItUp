@@ -4,6 +4,7 @@ export default class MiniSlider extends Slider {
 	constructor(container, next, prev, activeClass, animate, autoplay, nextPlus) {
 		super(container, next, prev, activeClass, animate, autoplay, nextPlus);
 		this.interval = null; // Додана змінна для зберігання інтервалу
+			
 	}
 
 	decorizeSlides() {

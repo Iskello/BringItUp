@@ -17,7 +17,7 @@ export default class MainSlider extends Slider {
 
 		try {
 			this.hanson.style.opacity = '0';
-
+			//на третьому слайді показуємо вспливаюче інформаційне вікно
 			if(n === 3) {
 				this.hanson.classList.add('animated');
 				setTimeout(() => {
@@ -27,14 +27,16 @@ export default class MainSlider extends Slider {
 			} else {
 				this.hanson.classList.remove('slideInUp');
 			}
-		} catch(e) {}
+		} catch(e) {
+			console.log(e);
+		}
 
 		
-
+		//ховаємо всі непотрібні слайди
 		this.slides.forEach(slide => {
 			slide.style.display = 'none';
 		});
-
+		//показуємо даний слайд
 		this.slides[this.slideIndex - 1].style.display = 'block';
 	}
 
@@ -79,7 +81,9 @@ export default class MainSlider extends Slider {
 		if (this.container) {
 			try {
 				this.hanson = document.querySelector('.hanson');
-			} catch(e) {}			
+			} catch(e) {
+				console.log(e);
+			}			
 			
 			this.showSlides(this.slideIndex);
 
