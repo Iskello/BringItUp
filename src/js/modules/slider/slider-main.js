@@ -1,5 +1,6 @@
 import Slider from './slider';
 
+
 //Створюємо головний слайдер який наслідується від Слайдеру
 export default class MainSlider extends Slider {
 	constructor(nextPage, prevPage) {
@@ -27,9 +28,7 @@ export default class MainSlider extends Slider {
 			} else {
 				this.hanson.classList.remove('slideInUp');
 			}
-		} catch(e) {
-			console.log(e);
-		}
+		} catch(e) {}
 
 		
 		//ховаємо всі непотрібні слайди
@@ -81,9 +80,7 @@ export default class MainSlider extends Slider {
 		if (this.container) {
 			try {
 				this.hanson = document.querySelector('.hanson');
-			} catch(e) {
-				console.log(e);
-			}			
+			} catch(e) {}			
 			
 			this.showSlides(this.slideIndex);
 

@@ -126,7 +126,7 @@ export default class Form {
 					})
 					.finally(() => {
 						this.clearInputs();
-						setInterval(() => {
+						setTimeout(() => {
 							statusMessage.remove();
 						}, 6000);
 					});
